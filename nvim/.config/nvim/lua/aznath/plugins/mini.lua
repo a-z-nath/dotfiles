@@ -14,11 +14,11 @@ return {
                     go_out_plus = "H",
                 },
             })
-            vim.keymap.set("n", "<leader>ee", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file explorer" }) -- toggle file explorer
+            vim.keymap.set("n", "<leader>ee", "<cmd>lua MiniFiles.open()<CR>", { desc = "Open mini file explorer" }) -- open file explorer
             vim.keymap.set("n", "<leader>ef", function()
                 MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
                 MiniFiles.reveal_cwd()
-            end, { desc = "Toggle into currently opened file" })
+            end, { desc = "Open explorer at current file" })
         end,
     },
     -- Surround
@@ -54,7 +54,7 @@ return {
             miniTrailspace.setup({
                 only_in_normal_buffers = true,
             })
-            vim.keymap.set("n", "<leader>cw", function() miniTrailspace.trim() end, { desc = "Erase Whitespace" })
+            vim.keymap.set("n", "<leader>cw", function() miniTrailspace.trim() end, { desc = "Trim trailing whitespace" })
 
             -- Ensure highlight never reappears by removing it on CursorMoved
             vim.api.nvim_create_autocmd("CursorMoved", {

@@ -2,7 +2,7 @@ return {
     "nvzone/showkeys",
     lazy = false,
     opts = {
-        position = "bottom-center",
+        position = "bottom-right",
         maxkeys = 5,
         show_count = true,
         winopts = {

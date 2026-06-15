@@ -129,6 +129,10 @@ return {
                 },
                 img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments","Archives/All-Vault-Images/", "~/Library", "~/Downloads" },
             },
+            terminal = {
+                enabled = true,
+                win = { style = "split", position = "bottom", height = 0.3 },
+            },
             dashboard = {
                 enabled = true,
                 sections = {
@@ -160,6 +164,27 @@ return {
             -- Other Utils
             { "<leader>th" , function() require("snacks").picker.colorschemes({ layout = "ivy" }) end, desc = "Pick Color Schemes"},
             { "<leader>vh", function() require("snacks").picker.help() end, desc = "Help Pages" },
+
+            -- Snacks Terminal
+            { "<C-`>",  function() require("snacks").terminal.toggle() end, desc = "Toggle terminal", mode = { "n", "t" } },
+            { "<C-S-`>", function()
+                require("snacks").terminal(nil, { win = { style = "split", position = "bottom", height = 0.3 } })
+              end, desc = "New terminal (bottom split)", mode = { "n", "t" } },
+            { "<C-Tab>", function()
+                local terminals = vim.tbl_filter(function(buf)
+                  return vim.bo[buf].buftype == "terminal"
+                end, vim.api.nvim_list_bufs())
+                if #terminals > 1 then
+                  local cur = vim.api.nvim_get_current_buf()
+                  for i, buf in ipairs(terminals) do
+                    if buf == cur then
+                      local next = terminals[i % #terminals + 1]
+                      vim.api.nvim_win_set_buf(vim.api.nvim_get_current_win(), next)
+                      return
+                    end
+                  end
+                end
+              end, desc = "Cycle terminal buffers", mode = { "n", "t" } },
         }
     },
     -- NOTE: todo comments w/ snacks
@@ -168,8 +193,8 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         optional = true,
         keys = {
-            { "<leader>pt", function() require("snacks").picker.todo_comments() end, desc = "All" },
-            { "<leader>pT", function() require("snacks").picker.todo_comments({ keywords = { "TODO","FORGETNOT","FIXME" } }) end, desc = "mains" },
+            { "<leader>pt", function() require("snacks").picker.todo_comments() end, desc = "List ALL TODO comments" },
+            { "<leader>pT", function() require("snacks").picker.todo_comments({ keywords = { "TODO","FORGETNOT","FIXME" } }) end, desc = "List TODO/FIXME items" },
         },
     }
 }

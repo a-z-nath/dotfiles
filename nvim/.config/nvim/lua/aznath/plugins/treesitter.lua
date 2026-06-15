@@ -6,7 +6,7 @@ return {
         lazy = false,
         build = ":TSUpdate",
         config = function()
-            require("nvim-treesitter.configs").setup({
+            require("nvim-treesitter.config").setup({
                 ensure_installed = {
                     "json", "javascript", "typescript", "tsx", "go", "yaml", "html", "css", "python",
                     "http", "prisma", "svelte", "graphql", "bash", "vim", "dockerfile",

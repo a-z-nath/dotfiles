@@ -2,7 +2,7 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
+vim.keymap.set("n", "<leader><leader>", function() vim.cmd("source ") end, { desc = "Source current file" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves lines down in visual selection" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves lines up in visual selection" })
@@ -26,22 +26,22 @@ vim.keymap.set("i", "<C-c>", [["+x]], { desc = "Copy to clipboard in insert mode
 vim.keymap.set("n", "<C-c>", ":nohl<CR>", { desc = "Clear search hl", silent = true })
 
 -- format built in
-vim.keymap.set("n", "<leader>F", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { desc = "Format buffer via LSP" })
 
 -- prevent x delete from registering when next paste
 vim.keymap.set("n", "x", '"_x', opts)
 
 -- Replace the word cursor is on globally
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word cursor is on globally" })
+vim.keymap.set("n", "<leader>rs", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word globally" })
 -- Executes shell command from in here making file executable
 vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
 
 -- tab stuff
-vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>")   --open new tab
-vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>") --close current tab
-vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>")     --go to next
-vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>")     --go to pre
-vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>") --open current tab in new tab
+vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" })
+vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" })
+vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Next tab" })
+vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Previous tab" })
+vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
 
 --split management
 vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
@@ -73,6 +73,11 @@ vim.keymap.set("n", "<leader>lr", function()
     vim.notify("LSP restarted", vim.log.levels.INFO)
 end, { desc = "Restart LSP" })
 
+-- Close terminal buffer in terminal mode
+vim.keymap.set("t", "<C-w>", function()
+  vim.api.nvim_win_close(vim.api.nvim_get_current_win(), true)
+end, { desc = "Close terminal" })
+
 -- which-key group registrations
 vim.api.nvim_create_autocmd("User", {
     pattern = "VeryLazy",
@@ -82,6 +87,7 @@ vim.api.nvim_create_autocmd("User", {
             { "<leader>t", group = "Tab" },
             { "<leader>s", group = "Split" },
             { "<leader>b", group = "Buffer" },
+            { "<leader>g", group = "Git" },
             { "<leader>f", group = "Find" },
             { "<leader>x", group = "Trouble" },
             { "<leader>v", group = "Code" },
@@ -91,6 +97,8 @@ vim.api.nvim_create_autocmd("User", {
             { "<leader>fp", desc = "Copy file path" },
             { "<leader>re", desc = "Restart Neovim" },
             { "<leader>lr", desc = "Restart LSP" },
+            { "<leader>rs", desc = "Replace word globally" },
+            { "<leader>u", desc = "Toggle undo tree" },
         })
     end,
 })

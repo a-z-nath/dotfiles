@@ -12,7 +12,9 @@ return {
                     implementation = "prefer_rust",
                 },
                 keymap = {
-                    preset = "default",
+                    ["<CR>"] = { "accept", "fallback" },
+                    ["<C-n>"] = { "select_next", "fallback" },
+                    ["<C-p>"] = { "select_prev", "fallback" },
                 },
                 completion = {
                     menu = {

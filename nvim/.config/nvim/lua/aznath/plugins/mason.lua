@@ -33,7 +33,6 @@ return {
                 "cssls",
                 "tailwindcss",
                 "gopls",
-                "pyright",
                 "clangd",
                 "angularls",
                 "astro",
@@ -47,6 +46,7 @@ return {
             ensure_installed = {
                 "biome",
                 "prettier",
+                "pyright",
                 "stylua",
                 "isort",
                 "pylint",
