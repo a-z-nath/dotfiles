@@ -45,6 +45,6 @@ return {
 			builtin.grep_string({ search = word })
 		end, { desc = "Find Connected Words under cursor" })
 
-		vim.keymap.set("n", "<leader>ths", "<cmd>Telescope themes<CR>", { noremap = true, silent = true, desc = "Theme Switcher" })
+		-- NOTE: snacks picker.colorschemes handles this via <leader>th
     end,
 }

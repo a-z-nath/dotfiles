@@ -43,9 +43,20 @@ vim.opt.splitbelow = true
 vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
 vim.opt.isfname:append "@-@"
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "0"
+vim.opt.colorcolumn = "80"
 vim.opt.clipboard:append "unnamedplus"
 vim.opt.mouse = "a"
+
+-- Soft word wrap at 80 for prose (visual only, no hard line breaks)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "mdx", "text", "gitcommit", "help" },
+  callback = function()
+    vim.wo.wrap = true
+    vim.wo.linebreak = true
+    vim.wo.breakindent = true
+    vim.bo.textwidth = 80
+  end,
+})
 
 -- Hightlight yanking
 vim.api.nvim_create_autocmd("TextYankPost", {

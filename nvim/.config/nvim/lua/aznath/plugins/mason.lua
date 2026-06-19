@@ -55,6 +55,7 @@ return {
                 "clang-format",
                 "gofumpt",
                 "denols",
+                "mdx-analyzer",
             },
         })
     end,

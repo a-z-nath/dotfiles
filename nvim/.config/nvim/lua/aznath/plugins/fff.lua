@@ -114,7 +114,7 @@ return {
       desc = "Live fuzzy grep",
     },
     {
-      "<leader>grf",
+      "<leader>fG",
       function()
         require("fff").find_in_git_root()
       end,

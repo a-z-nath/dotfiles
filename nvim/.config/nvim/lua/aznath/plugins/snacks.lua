@@ -166,10 +166,15 @@ return {
             { "<leader>vh", function() require("snacks").picker.help() end, desc = "Help Pages" },
 
             -- Snacks Terminal
-            { "<C-`>",  function() require("snacks").terminal.toggle() end, desc = "Toggle terminal", mode = { "n", "t" } },
-            { "<C-S-`>", function()
+            -- Alt+Backtick works in both modes (Ctrl+Backtick often not sent by terminals)
+            { "<A-`>",  function() require("snacks").terminal.toggle() end, desc = "Toggle terminal", mode = { "n", "t" } },
+            { "<C-`>",  function() require("snacks").terminal.toggle() end, desc = "Toggle terminal", mode = { "n" } },
+            -- New terminal (Alt+Shift+Backtick = Alt+Tilde)
+            { "<A-~>", function()
                 require("snacks").terminal(nil, { win = { style = "split", position = "bottom", height = 0.3 } })
               end, desc = "New terminal (bottom split)", mode = { "n", "t" } },
+            -- Fallback: leader key always works
+            { "<leader>tt", function() require("snacks").terminal.toggle() end, desc = "Toggle terminal" },
             { "<C-Tab>", function()
                 local terminals = vim.tbl_filter(function(buf)
                   return vim.bo[buf].buftype == "terminal"
